@@ -108,13 +108,15 @@ linkedList.prototype.addAtIndex = function(int, index) {
 
           node.next = currentNode;
 
-          node.previous = currentNode.previous; 
+          node.previous = currentNode.previous;
 
-          currentNode = node;
+          currentNode.previous.next = node;
+
+          currentNode.previous = node;
+
+        } else {
 
           counter += 1;
-        
-        } else {
 
           currentNode = currentNode.next;
         
@@ -162,15 +164,99 @@ linkedList.prototype.removeEnd = function() {
 
     this.tail = temp.previous;
 
+    return temp;
+
   }
 
 }
 
-linkedList.prototype.removeAtIndex = function() {
+linkedList.prototype.removeAtIndex = function(index) {
+
+  var error = 'index must be 0 or above';
+
+  if(index < 0) {
+
+    throw error;
+  
+  } else {
+
+    if(!this.head && !this.tail) {
+
+      return null;
+    
+    } else {
+
+      var counter = 0;
+
+      var currentNode = this.head;
+
+      while(currentNode) {
+
+        if(counter === index) {
+
+          currentNode.previous.next = currentNode.next;
+
+          currentNode.next.previous = currentNode.previous;
+
+          currentNode = null;
+
+          return currentNode;
+
+        } else {
+
+          counter += 1;
+
+          currentNode = currentNode.next;
+        
+        }
+      
+      }
+    
+    }
+  
+  }
 
 }
 
-linkedList.prototype.getAtIndex = function() {
+linkedList.prototype.getAtIndex = function(index) {
+
+  var error = 'invalid search';
+
+  if(index < 0) {
+
+    throw error;
+  
+  } else {
+
+    if(!this.head && !this.tail) {
+
+      throw error;
+    
+    } else {
+
+      var counter = 0;
+
+      var currentNode = this.head;
+
+      while(currentNode) {
+
+        if(counter === index) {
+
+          return currentNode;
+        
+        } else {
+
+          counter += 1;
+
+          currentNode = currentNode.next;
+        
+        }
+      
+      }
+    
+    }
+  
+  }
 
 }
 
@@ -184,5 +270,7 @@ l.addEnd(5);
 // l.addAtIndex(6,2);
 l.removeFront();
 l.removeEnd();
+l.removeAtIndex(1);
 l.display();
 console.log(l)
+console.log(l.getAtIndex(0))
