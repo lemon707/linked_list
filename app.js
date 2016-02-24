@@ -1,16 +1,12 @@
 function linkedList() {
 
-  this.head = null;
-
-  this.tail = null;
+  this.head = this.tail = null;
 
 }
 
 function Node(value) {
 
-  this.previous = null;
-
-  this.next = null;
+  this.previous = this.next = null;
 
   this.value = value;
 
@@ -26,11 +22,9 @@ linkedList.prototype.addFront = function(int) {
   
   } else {
 
-    var temp = this.head;
+    this.head.previous = node;
 
-    temp.previous = node;
-
-    node.next = temp;
+    node.next = this.head;
 
     this.head = node;
   
@@ -68,13 +62,11 @@ linkedList.prototype.addEnd = function(int) {
   
   } else {
 
-    var temp = this.tail;
+   this.tail.next = node;
 
-    temp.next = node;
+   node.previous = this.tail;
 
-    node.previous = temp;
-
-    this.tail = node;
+   this.tail = node;
 
   }
 
@@ -194,13 +186,15 @@ linkedList.prototype.removeAtIndex = function(index) {
 
         if(counter === index) {
 
+          var temp = currentNode;
+
           currentNode.previous.next = currentNode.next;
 
           currentNode.next.previous = currentNode.previous;
 
           currentNode = null;
 
-          return currentNode;
+          return temp;
 
         } else {
 
