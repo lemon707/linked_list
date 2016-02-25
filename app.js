@@ -106,6 +106,8 @@ linkedList.prototype.addAtIndex = function(int, index) {
 
           currentNode.previous = node;
 
+          return;
+
         } else {
 
           counter += 1;
@@ -261,7 +263,7 @@ l.addFront(2);
 l.addEnd(3);
 l.addFront(4);
 l.addEnd(5);
-// l.addAtIndex(6,2);
+l.addAtIndex(6,2);
 l.removeFront();
 l.removeEnd();
 l.removeAtIndex(1);
